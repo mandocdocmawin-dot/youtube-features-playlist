@@ -1,7 +1,6 @@
 function Footer() {
-    const year = 2009
     return (
-        <p>&copy; {new Date().getFullYear()} - Anong moment mo sa buhay?</p>
+        <p>&copy; {new Date().getFullYear()} - Your daily dose of rhythm?</p>
     )
 }
 

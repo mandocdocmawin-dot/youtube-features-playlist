@@ -1,2 +1,2 @@
-export const PLAYLIST_NAME = "SPOTIFY PLAYLIST"
-export const CURATOR = "Marwin Mandocdoc"
+export const PLAYLIST_NAME = "YOUTUBE PLAYLIST"
+export const CURATOR = "Marwin"

@@ -7,8 +7,8 @@ function Title() {
     return (
         <>
 
-            <h1 className="title">Spotify  Playlist</h1>
-            <p>Music for every moment</p>
+            <h1 className="title">YouTube  Playlist</h1>
+            <p>Broadcast Yourself</p>
             <p>{`${PLAYLIST_NAME} by ${CURATOR}`}</p>
             <p>{hype("now playing")}</p>
         </>

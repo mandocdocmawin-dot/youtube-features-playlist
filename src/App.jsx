@@ -1,7 +1,7 @@
 import './App.css'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import SongList from './components/tracks/SongList'
+import YoutubeList from './components/tracks/YoutubeList'
 
 function App () {
 
@@ -9,7 +9,7 @@ function App () {
     <>
     <div className="page">
       <Header />
-      <SongList />
+      <YoutubeList />
       <Footer />
     </div>
     </>
