@@ -3,6 +3,7 @@ import './YoutubeList.css';
 import Divider from "../../Divider";
 
 const ITEMS_PER_PAGE = 3;
+const MAX_URL_LENGTH = 300; // real YouTube links are well under this
 
 function YoutubeList() {
     // Core playback state - stores the YouTube video/playlist ID
@@ -109,6 +110,13 @@ function YoutubeList() {
         e.preventDefault();
         if (!youtubeUrl.trim() || isAdding) return;
 
+        // Reject absurdly long input immediately - never let it reach
+        // new URL() or the oEmbed fetch call
+        if (youtubeUrl.length > MAX_URL_LENGTH) {
+            alert("That link looks too long to be a valid YouTube URL.");
+            return;
+        }
+
         try {
             const parsed = parseYoutubeUrl(youtubeUrl);
 
@@ -163,6 +171,7 @@ function YoutubeList() {
                     value={youtubeUrl}
                     onChange={(e) => setYoutubeUrl(e.target.value)}
                     placeholder="Paste YouTube video or playlist link..."
+                    maxLength={MAX_URL_LENGTH}
                     style={{
                         flex: 1,
                         padding: '12px 16px',
