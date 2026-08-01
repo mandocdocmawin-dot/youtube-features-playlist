@@ -16,6 +16,9 @@ function YoutubeList() {
     // Dynamic state array - starts empty, populated only from links the user pastes
     const [videos, setVideos] = useState([]);
 
+    // Modal shown when the user tries to add a video/playlist that's already in the list
+    const [showDuplicateModal, setShowDuplicateModal] = useState(false);
+
     // Pagination state
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.max(1, Math.ceil(videos.length / ITEMS_PER_PAGE));
@@ -115,6 +118,14 @@ function YoutubeList() {
             }
 
             const { id, type } = parsed;
+
+            // Block duplicates - same video/playlist ID + type already in the list
+            const isDuplicate = videos.some((v) => v.id === id && v.type === type);
+            if (isDuplicate) {
+                setShowDuplicateModal(true);
+                return;
+            }
+
             setIsAdding(true);
 
             const metadata = await fetchYoutubeMetadata(youtubeUrl, id, type);
@@ -140,6 +151,7 @@ function YoutubeList() {
 
     const goToPage = (page) => {
         setCurrentPage(Math.min(Math.max(1, page), totalPages));
+        setActiveVideoId(null); // Auto-pause whatever's playing when the page changes
     };
 
     return (
@@ -266,6 +278,30 @@ function YoutubeList() {
                     >
                         Next
                     </button>
+                </div>
+            )}
+
+            {/* Duplicate warning modal */}
+            {showDuplicateModal && (
+                <div
+                    className="yt-modal-overlay"
+                    onClick={() => setShowDuplicateModal(false)}
+                >
+                    <div
+                        className="yt-modal"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <p className="yt-modal-title">Already Added</p>
+                        <p className="yt-modal-text">
+                            This video or playlist is already in your list.
+                        </p>
+                        <button
+                            className="yt-modal-btn"
+                            onClick={() => setShowDuplicateModal(false)}
+                        >
+                            Got it
+                        </button>
+                    </div>
                 </div>
             )}
 

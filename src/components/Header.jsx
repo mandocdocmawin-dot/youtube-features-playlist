@@ -1,12 +1,12 @@
 import Title from './Title'
 
 function Header () {
-  const isLive = true;
+  const isLive = false;
 
   return (
-    <header>
+  <header>
       <Title />
-      <p>{isLive ? "Listening live now." : "Playing from your saved queue."}</p>
+      <p className="status">{isLive ? "Listening live now." : "Playing from your saved queue."}</p>
     </header>
   ) 
 }
